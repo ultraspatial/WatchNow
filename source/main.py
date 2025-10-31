@@ -1,20 +1,24 @@
 import csv
 import random
+from yt_dlp import YoutubeDL as yt
 import webbrowser
 
-WatchLater = 'Watch Later-videos.csv'
+Input = "Watch later-videos.csv"
+WatchNow = "WatchNow.csv"
+
+## Extract title, duration and upload date.
+
 
 # Reads the CSV file and stores it in a dictionary
-with open(WatchLater, mode='r') as file:
-    csv_reader = csv.DictReader(file)
-    data_list = []
+with open(Input, mode="r") as file:
+    csv_fields = csv.DictReader(file)
+    csv_data = []
     # Stores each dictionary in a list
-    for row in csv_reader:
-        data_list.append(row)
-
+    for row in csv_fields:
+        csv_data.append(row)
 # Chooses random dictionary off list
-RandomValue = random.choice(data_list)
+RandomValue = random.choice(csv_data)
 # Gets Video ID from dictionary
-RandomVideo = RandomValue.get('Video ID')
-
-webbrowser.open_new_tab('https://www.youtube.com/watch?v='+RandomVideo)
+RandomVideo = RandomValue.get("Video ID")
+# Opens Video ID in Browser as Youtube URL
+webbrowser.open_new_tab("https://www.youtube.com/watch?v=" + RandomVideo)
